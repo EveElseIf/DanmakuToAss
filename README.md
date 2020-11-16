@@ -21,3 +21,5 @@ var assString = DanmakuConverter.ConvertToAss(danmakuList,1920,1080);
 
 # 其他说明
 参考了 https://github.com/kaedei/danmu2ass 的代码
+
+B站新增了许多复杂的弹幕种类，所以本项目尚未支持，日后慢慢研究。。。
