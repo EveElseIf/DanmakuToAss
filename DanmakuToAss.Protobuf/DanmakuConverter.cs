@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace DanmakuToAss.Library
+namespace DanmakuToAss.Protobuf
 {
     public class DanmakuConverter
     {
@@ -20,9 +20,7 @@ Style: AcplayDefault, {fontName}, {fontSize}, &H00FFFFFF, &H00FFFFFF, &H00000000
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 ";
-            var dic1 = new Dictionary<int, float>();
-            var dic2 = new Dictionary<int, float>();
-            var asses = danmakus.Select(d => new AssSubtitle(d, dic1, dic2, videoWidth, videoHeight, fontSize, lineCount, bottomMargin, shift));
+            var asses = danmakus.Select(d => new AssSubtitle(d, videoWidth, videoHeight, fontSize, lineCount, bottomMargin, shift));
             return header + string.Join("\n", asses);
         }
     }

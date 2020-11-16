@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DanmakuToAss.Library", "Dan
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DanmakuToAss", "DanmakuToAss\DanmakuToAss.csproj", "{0A0C95C8-DCDD-40BA-9548-0226880A4348}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanmakuToAss.Protobuf", "DanmakuToAss.Protobuf\DanmakuToAss.Protobuf.csproj", "{790669C9-5B89-4F27-836F-7CD215D49C16}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{0A0C95C8-DCDD-40BA-9548-0226880A4348}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A0C95C8-DCDD-40BA-9548-0226880A4348}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A0C95C8-DCDD-40BA-9548-0226880A4348}.Release|Any CPU.Build.0 = Release|Any CPU
+		{790669C9-5B89-4F27-836F-7CD215D49C16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{790669C9-5B89-4F27-836F-7CD215D49C16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{790669C9-5B89-4F27-836F-7CD215D49C16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{790669C9-5B89-4F27-836F-7CD215D49C16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

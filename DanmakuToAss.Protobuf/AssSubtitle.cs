@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DanmakuToAss.Library
+namespace DanmakuToAss.Protobuf
 {
     internal class AssSubtitle
     {
+        private static Dictionary<int, float> bottomSubtitles = new Dictionary<int, float>();
+        private static Dictionary<int, float> topSubtitles = new Dictionary<int, float>();
         private readonly Danmaku danmaku;
-        private Dictionary<int, float> bottomSubtitles;
-        private Dictionary<int, float> topSubtitles;
         private readonly int videoWidth;
         private readonly int videoHeight;
         private readonly int baseFontSize;
@@ -22,11 +22,9 @@ namespace DanmakuToAss.Library
         private readonly Position position;
         private readonly string styledText;
 
-        public AssSubtitle(Danmaku danmaku,Dictionary<int,float> bottomSubtitles,Dictionary<int,float> topSubtitles, int videoWidth, int videoHeight, int baseFontSize, int lineCount, int bottomMargin, float tuneSeconds)
+        public AssSubtitle(Danmaku danmaku, int videoWidth, int videoHeight, int baseFontSize, int lineCount, int bottomMargin, float tuneSeconds)
         {
             this.danmaku = danmaku;
-            this.bottomSubtitles = bottomSubtitles;
-            this.topSubtitles = topSubtitles;
             this.videoWidth = videoWidth;
             this.videoHeight = videoHeight;
             this.baseFontSize = baseFontSize;
@@ -101,11 +99,11 @@ namespace DanmakuToAss.Library
             }
             else if (this.danmaku.Type == DanmakuType.Buttom)
             {
-                var lineIndex = ChooseLineCount(this.bottomSubtitles, this.startTime);
-                if (this.bottomSubtitles.Keys.Contains(lineIndex))
-                    this.bottomSubtitles[lineIndex] = this.endTime;
+                var lineIndex = ChooseLineCount(bottomSubtitles, this.startTime);
+                if (bottomSubtitles.Keys.Contains(lineIndex))
+                    bottomSubtitles[lineIndex] = this.endTime;
                 else
-                    this.bottomSubtitles.Add(lineIndex, this.endTime);
+                    bottomSubtitles.Add(lineIndex, this.endTime);
                 int x = this.videoWidth / 2;
                 int y = this.videoHeight - (this.baseFontSize * lineIndex + this.bottomMargin);
                 position.X1 = position.X2 = x;
@@ -113,11 +111,11 @@ namespace DanmakuToAss.Library
             }
             else if (this.danmaku.Type == DanmakuType.Top)
             {
-                var lineIndex = ChooseLineCount(this.topSubtitles, this.startTime);
-                if (this.topSubtitles.Keys.Contains(lineIndex)) 
-                    this.topSubtitles[lineIndex] = this.endTime;
+                var lineIndex = ChooseLineCount(topSubtitles, this.startTime);
+                if (topSubtitles.Keys.Contains(lineIndex)) 
+                    topSubtitles[lineIndex] = this.endTime;
                 else
-                    this.topSubtitles.Add(lineIndex, this.endTime);
+                    topSubtitles.Add(lineIndex, this.endTime);
                 int x = this.videoWidth / 2;
                 int y = this.baseFontSize * lineIndex + 1;
                 position.X1 = position.X2 = x;
