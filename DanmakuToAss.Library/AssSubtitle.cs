@@ -100,7 +100,10 @@ namespace DanmakuToAss.Library
             else if (this.danmaku.Type == DanmakuType.Buttom)
             {
                 var lineIndex = ChooseLineCount(bottomSubtitles, this.startTime);
-                bottomSubtitles.Add(lineIndex, this.endTime);
+                if (bottomSubtitles.Keys.Contains(lineIndex))
+                    bottomSubtitles[lineIndex] = this.endTime;
+                else
+                    bottomSubtitles.Add(lineIndex, this.endTime);
                 int x = this.videoWidth / 2;
                 int y = this.videoHeight - (this.baseFontSize * lineIndex + this.bottomMargin);
                 position.X1 = position.X2 = x;
@@ -109,7 +112,10 @@ namespace DanmakuToAss.Library
             else if (this.danmaku.Type == DanmakuType.Top)
             {
                 var lineIndex = ChooseLineCount(topSubtitles, this.startTime);
-                topSubtitles.Add(lineIndex, this.endTime);
+                if (topSubtitles.Keys.Contains(lineIndex)) 
+                    topSubtitles[lineIndex] = this.endTime;
+                else
+                    topSubtitles.Add(lineIndex, this.endTime);
                 int x = this.videoWidth / 2;
                 int y = this.baseFontSize * lineIndex + 1;
                 position.X1 = position.X2 = x;
