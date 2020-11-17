@@ -8,6 +8,7 @@
     <Description>将B站xml弹幕(仅滚动，反向滚动，顶部，底部弹幕)转换为ass格式</Description>
     <PackageTags>danmaku</PackageTags>
     <RepositoryUrl>https://github.com/EveElseIf/DanmakuToAss</RepositoryUrl>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
 </Project>

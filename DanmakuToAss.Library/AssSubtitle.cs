@@ -45,22 +45,20 @@ namespace DanmakuToAss.Library
         }
         public override string ToString()
         {
-            string format(string s)
-            {
-                if (!s.Contains('.')) return s.Insert(s.Length, ".00");
-                if (s.Substring(s.LastIndexOf('.')).Length == 2) return s + "0";
-                if (s.Substring(s.LastIndexOf('.')).Length > 3)
+                string format(string s)
                 {
-                    var index = s.LastIndexOf('.');
-                    return s.Remove(index+3, s.Length - index -3);
+                    if (!s.Contains('.')) return s.Insert(s.Length, ".00");
+                    if (s.Substring(s.LastIndexOf('.')).Length == 2) return s + "0";
+                    if (s.Substring(s.LastIndexOf('.')).Length > 3)
+                    {
+                        var index = s.LastIndexOf('.');
+                        return s.Remove(index + 3, s.Length - index - 3);
+                    }
+                    return s;
                 }
-                return s;
-            }
-            //var start = format(TimeSpan.FromSeconds(Math.Round(this.startTime, 2)).ToString("g"));
-            //var end = format(TimeSpan.FromSeconds(Math.Round(this.endTime, 2)).ToString("g"));
-            var start = format(TimeSpan.FromSeconds(this.startTime).ToString("c"));
-            var end = format(TimeSpan.FromSeconds(this.endTime).ToString("c"));
-            return $"Dialogue: 3,{start},{end},AcplayDefault,,0000,0000,0000,,{this.styledText}";
+                var start = format(TimeSpan.FromSeconds(this.startTime).ToString("c"));
+                var end = format(TimeSpan.FromSeconds(this.endTime).ToString("c"));
+                return $"Dialogue: 3,{start},{end},AcplayDefault,,0000,0000,0000,,{this.styledText}";
         }
 
         private string GetStyledText()
@@ -144,30 +142,32 @@ namespace DanmakuToAss.Library
         }
         private int ChooseLineCount(Dictionary<int, float> subtitles, float startTime)
         {
-            int lineIndex;
-            foreach (var item in subtitles)
-            {
-                if (item.Value <= startTime) subtitles.Remove(item.Key);
-            }
-            if (subtitles.Count == 0)
-                lineIndex = 0;
-            else if (subtitles.Count == subtitles.Keys.Max())
-                lineIndex = subtitles.Keys.Min();
-            else
-            {
-                lineIndex = 0;
-                for (int i = 0; i < subtitles.Count; i++)
+                int lineIndex;
+                var toRemove = new List<int>();
+                foreach (var item in subtitles)
                 {
-                    if (!subtitles.ContainsKey(i))
-                    {
-                        lineIndex = i;
-                        break;
-                    }
+                    if (item.Value <= startTime) toRemove.Add(item.Key);
                 }
-                if (lineIndex == 0)
-                    lineIndex = subtitles.Count;
-            }
-            return lineIndex;
+                toRemove.ForEach(s => subtitles.Remove(s));
+                if (subtitles.Count == 0)
+                    lineIndex = 0;
+                else if (subtitles.Count == subtitles.Keys.Max())
+                    lineIndex = subtitles.Keys.Min();
+                else
+                {
+                    lineIndex = 0;
+                    for (int i = 0; i < subtitles.Count; i++)
+                    {
+                        if (!subtitles.ContainsKey(i))
+                        {
+                            lineIndex = i;
+                            break;
+                        }
+                    }
+                    if (lineIndex == 0)
+                        lineIndex = subtitles.Count;
+                }
+                return lineIndex;
         }
 
         private float GetEndTime(float showTime, float offset)
