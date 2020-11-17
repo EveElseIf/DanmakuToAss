@@ -5,6 +5,18 @@ namespace DanmakuToAss.Library
 {
     public class DanmakuConverter
     {
+        /// <summary>
+        /// 将弹幕列表转换为ass字符串
+        /// </summary>
+        /// <param name="danmakus">弹幕列表，使用DanmakuParser类获取</param>
+        /// <param name="videoWidth">视频宽度</param>
+        /// <param name="videoHeight">视频高度</param>
+        /// <param name="fontName">字体名称，可以保持默认</param>
+        /// <param name="fontSize">字体大小，可以保持默认</param>
+        /// <param name="lineCount">同屏行数，可以保持默认</param>
+        /// <param name="bottomMargin">底编剧，可以保持默认</param>
+        /// <param name="shift">偏移量</param>
+        /// <returns>ass字符串</returns>
         public static string ConvertToAss(IEnumerable<Danmaku> danmakus, int videoWidth, int videoHeight, string fontName = "Microsoft YaHei", int fontSize = 64, int lineCount = 14, int bottomMargin = 180, float shift = 0.0f)
         {
             var header = $@"[Script Info]
@@ -22,7 +34,10 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 ";
             var dic1 = new Dictionary<int, float>();
             var dic2 = new Dictionary<int, float>();
-            var asses = danmakus.Select(d => new AssSubtitle(d, dic1, dic2, videoWidth, videoHeight, fontSize, lineCount, bottomMargin, shift));
+            var asses = danmakus
+                .Where(d => d.Type == DanmakuType.Normal || d.Type == DanmakuType.Normal2 || d.Type == DanmakuType.Normal3
+                || d.Type == DanmakuType.Top || d.Type == DanmakuType.Bottom || d.Type == DanmakuType.Reverse)
+                .Select(d => new AssSubtitle(d, dic1, dic2, videoWidth, videoHeight, fontSize, lineCount, bottomMargin, shift));
             return header + string.Join("\n", asses);
         }
     }

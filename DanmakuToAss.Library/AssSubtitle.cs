@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
+[assembly:InternalsVisibleTo("DanmakuToAss.Protobuf")]
 namespace DanmakuToAss.Library
 {
     internal class AssSubtitle
     {
         private readonly Danmaku danmaku;
-        private Dictionary<int, float> bottomSubtitles;
-        private Dictionary<int, float> topSubtitles;
+        private readonly Dictionary<int, float> bottomSubtitles;
+        private readonly Dictionary<int, float> topSubtitles;
         private readonly int videoWidth;
         private readonly int videoHeight;
         private readonly int baseFontSize;
@@ -73,8 +75,11 @@ namespace DanmakuToAss.Library
             else borderMarkup = "";
             if (this.fontSize == this.baseFontSize) fontSizeMarkup = "";
             else fontSizeMarkup = $"\\fs{this.fontSize}";
-            if (this.danmaku.Type == DanmakuType.Normal) styleMarkup = $"\\move({this.position.X1},{this.position.Y1},{this.position.X2},{this.position.Y2})";
-            else styleMarkup = $"\\a6\\pos({this.position.X1},{this.position.Y1})";
+            if (this.danmaku.Type == DanmakuType.Normal || this.danmaku.Type == DanmakuType.Normal2
+                || this.danmaku.Type == DanmakuType.Normal3 || this.danmaku.Type == DanmakuType.Reverse)
+                styleMarkup = $"\\move({this.position.X1},{this.position.Y1},{this.position.X2},{this.position.Y2})";
+            else 
+                styleMarkup = $"\\a6\\pos({this.position.X1},{this.position.Y1})";
             return $"{{{string.Join("", styleMarkup, colourMarkup, borderMarkup, fontSizeMarkup)}}}{this.danmaku.Content}";
         }
 
@@ -99,7 +104,7 @@ namespace DanmakuToAss.Library
                 if (y < this.fontSize) y = this.fontSize;
                 position.Y1 = position.Y2 = y;
             }
-            else if (this.danmaku.Type == DanmakuType.Buttom)
+            else if (this.danmaku.Type == DanmakuType.Bottom)
             {
                 var lineIndex = ChooseLineCount(this.bottomSubtitles, this.startTime);
                 if (this.bottomSubtitles.Keys.Contains(lineIndex))
@@ -123,9 +128,17 @@ namespace DanmakuToAss.Library
                 position.X1 = position.X2 = x;
                 position.Y1 = position.Y2 = y;
             }
+            else if (this.danmaku.Type==DanmakuType.Reverse)
+            {
+                position.X2 = this.videoWidth + this.baseFontSize * this.textLength / 2;
+                position.X1 = -(this.baseFontSize * this.textLength) / 2;
+                int y = (this.danmaku.Index % this.lineCount + 1) * this.baseFontSize;
+                if (y < this.fontSize) y = this.fontSize;
+                position.Y1 = position.Y2 = y;
+            }
             else
             {
-                throw new ArgumentException();
+                throw new ArgumentException($"不支持的弹幕类型:内容为{this.danmaku.Content}，类型为{this.danmaku.Type}");
             }
             return position;
         }
@@ -159,7 +172,7 @@ namespace DanmakuToAss.Library
 
         private float GetEndTime(float showTime, float offset)
         {
-            if (this.danmaku.Type == DanmakuType.Buttom || this.danmaku.Type == DanmakuType.Top)
+            if (this.danmaku.Type == DanmakuType.Bottom || this.danmaku.Type == DanmakuType.Top)
                 return showTime + 4;
             float endTime;
             if (this.textLength < 5) endTime = showTime + 7 + this.textLength / 1.5f;

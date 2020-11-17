@@ -49,10 +49,12 @@ namespace DanmakuToAss.Library
         }
         public static RGB ToRgb(this int num)
         {
-            var rgb = new RGB();
-            rgb.B = num & 0xff;
-            rgb.G = (num >> 8) & 0xff;
-            rgb.R = (num >> 16) & 0xff;
+            var rgb = new RGB
+            {
+                B = num & 0xff,
+                G = (num >> 8) & 0xff,
+                R = (num >> 16) & 0xff
+            };
             return rgb;
         }
     }

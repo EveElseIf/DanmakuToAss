@@ -18,13 +18,37 @@
      */
     public class Danmaku
     {
+        /// <summary>
+        /// 出现时间
+        /// </summary>
         public float ShowTime { get; set; }
+        /// <summary>
+        /// 弹幕类型
+        /// </summary>
         public DanmakuType Type { get; set; }
+        /// <summary>
+        /// 字体大小
+        /// </summary>
         public DanmakuSize Size { get; set; }
+        /// <summary>
+        /// 十进制颜色
+        /// </summary>
         public int Colour { get; set; }
+        /// <summary>
+        /// 发送时间
+        /// </summary>
         public int SendTime { get; set; }
+        /// <summary>
+        /// 弹幕池类型
+        /// </summary>
         public DanmakuPoolType PoolType { get; set; }
+        /// <summary>
+        /// 发送者uid的哈希
+        /// </summary>
         public string SenderUIDHash { get; set; }
+        /// <summary>
+        /// 弹幕id
+        /// </summary>
         public long Id { get; set; }
         /// <summary>
         /// 按照时间排序后的索引
@@ -40,7 +64,7 @@
         Normal = 1,
         Normal2 = 2,
         Normal3 = 3,
-        Buttom = 4,
+        Bottom = 4,
         Top = 5,
         Reverse = 6,
         Advenced = 7,

@@ -69,7 +69,7 @@ namespace DanmakuToAss
                 throw new InvalidOperationException("文件拓展名不是.xml或.bin:" + path);
             try
             {
-                var danmakus = DanmakuParser.LoadXml(path);
+                var danmakus = DanmakuParser.LoadXmlFromFile(path);
                 var ass = DanmakuConverter.ConvertToAss(danmakus, config.Width, config.Height, "Microsoft YaHei", 64, config.Line, config.Bottom, config.Shift);
                 File.WriteAllText(Path.ChangeExtension(path, ".ass"), ass, Encoding.UTF8);
             }

@@ -10,11 +10,14 @@
 
   <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.14.0" />
-    <PackageReference Include="Google.Protobuf.Tools" Version="3.14.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="bilidm.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DanmakuToAss.Library\DanmakuToAss.Library.csproj" />
   </ItemGroup>
 
 </Project>

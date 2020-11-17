@@ -1,7 +1,8 @@
 {
   "profiles": {
     "DanmakuToAss": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "test4.xml"
     }
   }
 }

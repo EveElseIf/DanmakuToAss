@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DanmakuToAss.Library;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,7 +8,12 @@ namespace DanmakuToAss.Protobuf
 {
     public class DanmakuParser
     {
-        private static List<Danmaku> LoadProto(Stream proto)
+        /// <summary>
+        /// 通过二进制protobuf的stream加载
+        /// </summary>
+        /// <param name="proto">二进制protofub的stream</param>
+        /// <returns>弹幕列表</returns>
+        private static IList<Danmaku> LoadProto(Stream proto)
         {
             var msg = DmSegMobileReply.Parser.ParseFrom(proto);
             var list = msg.Elems.ToList().Select(e => new Danmaku()
@@ -17,37 +23,23 @@ namespace DanmakuToAss.Protobuf
                 Id = e.Id,
                 PoolType = (DanmakuPoolType)e.Pool,
                 SenderUIDHash = e.MidHash,
-                SendTime = e.Ctime,
+                SendTime = Convert.ToInt32(e.Ctime),
                 ShowTime = (float)TimeSpan.FromMilliseconds(e.Progress).TotalSeconds,
                 Size = (DanmakuSize)e.Fontsize,
                 Type = (DanmakuType)e.Mode,
                 Weight = e.Weight
             }).ToList();
-            //var list = new List<Danmaku>();
-            //foreach (var e in msg.Elems.ToList())
-            //{
-            //    var d = new Danmaku();
-            //    d.Colour = Convert.ToInt32(e.Color);
-            //    d.Content = e.Content;
-            //    d.Id = e.Id;
-            //    d.PoolType = (DanmakuPoolType)e.Pool;
-            //    d.SenderUIDHash = e.MidHash;
-            //    d.SendTime = e.Ctime;
-            //    d.ShowTime = (float)TimeSpan.FromMilliseconds(e.Progress).TotalSeconds;
-            //    d.Size = (DanmakuSize)e.Fontsize;
-            //    d.Type = (DanmakuType)e.Mode;
-            //    d.Weight = e.Weight;
-            //    list.Add(d);
-            //}
-            //list = list.OrderBy(d => d.ShowTime).ToList();
-            //var i = 0;
-            //list.ForEach(d => { d.Index = i; i++; });
             return list;
         }
-        public static List<Danmaku> LoadMutipleProto(params Stream[] proto)
+        /// <summary>
+        /// 通过多个二进制protobuf的stream加载弹幕列表
+        /// </summary>
+        /// <param name="protos">多个二进制protobuf的stream</param>
+        /// <returns>弹幕列表</returns>
+        public static IList<Danmaku> LoadMutipleProto(params Stream[] protos)
         {
             var list = new List<Danmaku>();
-            foreach (var danmaku in proto)
+            foreach (var danmaku in protos)
             {
                 list = list.Concat(LoadProto(danmaku)).ToList();
             }
