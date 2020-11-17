@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace DanmakuToAss.Library
 {
-    public class DanmakuConverter
+    public static class DanmakuConverter
     {
         /// <summary>
         /// 将弹幕列表转换为ass字符串
@@ -39,6 +39,10 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
                 || d.Type == DanmakuType.Top || d.Type == DanmakuType.Bottom || d.Type == DanmakuType.Reverse)
                 .Select(d => new AssSubtitle(d, dic1, dic2, videoWidth, videoHeight, fontSize, lineCount, bottomMargin, shift));
             return header + string.Join("\n", asses);
+        }
+        public static string ToAss(this IEnumerable<Danmaku> danmakus, int videoWidth, int videoHeight, string fontName = "Microsoft YaHei", int fontSize = 64, int lineCount = 14, int bottomMargin = 180, float shift = 0.0f)
+        {
+            return ConvertToAss(danmakus, videoWidth, videoHeight, fontName, fontSize, lineCount, bottomMargin, shift);
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace DanmakuToAss.Protobuf
 {
-    public class DanmakuConverter
+    public static class DanmakuConverter
     {
         /// <summary>
         /// 将弹幕列表转换为ass字符串
@@ -43,6 +43,10 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
                 .Select(d => new AssSubtitle(d, dic1, dic2, videoWidth, videoHeight, fontSize, lineCount, bottomMargin, shift));
             return header + string.Join("\n", asses);
         }
+        public static string ToAss(this IEnumerable<Library.Danmaku> danmakus, int videoWidth, int videoHeight, string fontName = "Microsoft YaHei", int fontSize = 64, int lineCount = 14, int bottomMargin = 180, float shift = 0.0f)
+        {
+            return ConvertToAss(danmakus, videoWidth, videoHeight, fontName, fontSize, lineCount, bottomMargin, shift);
+        }
         /// <summary>
         /// 将弹幕列表转换成xml字符转
         /// </summary>
@@ -65,6 +69,10 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
                 $"{string.Format("{0:F5}", d.ShowTime)},{Convert.ToInt32(d.Type)},{Convert.ToInt32(d.Size)},{d.Colour},{d.SendTime},{Convert.ToInt32(d.PoolType)},{d.SenderUIDHash},{d.Id}"),
                 d.Content))));
             return xdoc.ToString();
+        }
+        public static string ToXml(this IEnumerable<Library.Danmaku> danmakus,int cid = 0)
+        {
+            return ConvertToXml(danmakus, cid);
         }
     }
 }

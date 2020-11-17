@@ -46,7 +46,7 @@ namespace DanmakuToAss.Library
         public static IList<Danmaku> LoadXmlFromString(string xmlContent)
         {
             var list = new List<Danmaku>();
-            foreach (var item in XDocument.Load(xmlContent).Element("i").Elements("d"))
+            foreach (var item in XDocument.Parse(xmlContent).Element("i").Elements("d"))
             {
                 var attributes = item.Attribute("p").Value;
                 var attributeList = attributes.Split(',');
@@ -67,6 +67,11 @@ namespace DanmakuToAss.Library
             list = list.OrderBy(d => d.ShowTime).ToList();
             list.ForEach(d => { d.Index = i; i++; });
             return list;
+        }
+
+        public static object LoadXmlFromString(object file)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

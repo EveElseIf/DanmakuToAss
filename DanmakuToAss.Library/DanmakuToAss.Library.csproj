@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageId>DanmakuToAss.Library</PackageId>
+    <Authors>EveElseIf</Authors>
+    <Description>将B站xml弹幕(仅滚动，反向滚动，顶部，底部弹幕)转换为ass格式</Description>
+    <PackageTags>danmaku</PackageTags>
+    <RepositoryUrl>https://github.com/EveElseIf/DanmakuToAss</RepositoryUrl>
   </PropertyGroup>
 
 </Project>

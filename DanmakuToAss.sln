@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DanmakuToAss", "DanmakuToAs
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DanmakuToAss.Protobuf", "DanmakuToAss.Protobuf\DanmakuToAss.Protobuf.csproj", "{790669C9-5B89-4F27-836F-7CD215D49C16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanmakuToAss.Test", "DanmakuToAss.Test\DanmakuToAss.Test.csproj", "{9A4CFE56-ED44-4131-8FCB-82B8D7370CC5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanmakuToAss.Test", "DanmakuToAss.Test\DanmakuToAss.Test.csproj", "{E86F664C-39BD-4BFC-9EC2-803599C7542F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{790669C9-5B89-4F27-836F-7CD215D49C16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{790669C9-5B89-4F27-836F-7CD215D49C16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{790669C9-5B89-4F27-836F-7CD215D49C16}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9A4CFE56-ED44-4131-8FCB-82B8D7370CC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9A4CFE56-ED44-4131-8FCB-82B8D7370CC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9A4CFE56-ED44-4131-8FCB-82B8D7370CC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9A4CFE56-ED44-4131-8FCB-82B8D7370CC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E86F664C-39BD-4BFC-9EC2-803599C7542F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E86F664C-39BD-4BFC-9EC2-803599C7542F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E86F664C-39BD-4BFC-9EC2-803599C7542F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E86F664C-39BD-4BFC-9EC2-803599C7542F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
